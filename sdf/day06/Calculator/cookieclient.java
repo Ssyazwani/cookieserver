@@ -23,35 +23,29 @@ public class cookieclient {
             bufferedWriter = new BufferedWriter(outputStreamWriter);  
 
             Scanner scanner = new Scanner(System.in);  
-            while (true){  
-                String msgToSend = scanner.nextLine();  
-                bufferedWriter.write(msgToSend);  
-                bufferedWriter.newLine();  
-                bufferedWriter.flush();  
-                
-                System.out.println("Server: " + bufferedReader.readLine());  //printing the server message
-                
-                if (msgToSend.equalsIgnoreCase("BYE"))  
-                    break;  
-            }  
+            while (true) {
+                String msgToSend = scanner.nextLine();
+                bufferedWriter.write(msgToSend);
+                bufferedWriter.newLine();
+                bufferedWriter.flush();
+            
+                // Read and print the response from the server
+                String serverResponse;
+                while ((serverResponse = bufferedReader.readLine()) != null) {
+                    System.out.println("Server: " + serverResponse);
+            
+                    // Break the loop if the response is empty, indicating the end of the server's message
+                    if (serverResponse.isEmpty()) {
+                        break;
+                    }
+                }
+            
+                if (msgToSend.equalsIgnoreCase("BYE"))
+                    break;
+            }
         } catch (IOException e) {  
             e.printStackTrace();  
-        } finally {  
-             try {  
-                  if (socket != null)  
-                  socket.close();  
-                  if (inputStreamReader != null)  
-                    inputStreamReader.close();  
-                  if (outputStreamWriter != null)  
-                  outputStreamWriter.close();  
-                  if (bufferedReader != null)  
-                  bufferedReader.close();  
-                  if (bufferedWriter != null)  
-                  bufferedWriter.close();  
-             } catch (IOException e) {  
-            e.printStackTrace();  
-          }  
-       }  
+        }  
     }  
 }
     

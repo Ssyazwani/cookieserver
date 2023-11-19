@@ -20,26 +20,39 @@ public class cookieserver{
           try {  
          
               socket = serversocket.accept();  
-      
-              inputStreamReader = new InputStreamReader(socket.getInputStream());  
-              outputStreamWriter = new OutputStreamWriter(socket.getOutputStream());  
+
+              InputStream is = socket.getInputStream();
+              inputStreamReader = new InputStreamReader(is);  
+              OutputStream os = socket.getOutputStream();
+              outputStreamWriter = new OutputStreamWriter(os);  
               bufferedReader = new BufferedReader(inputStreamReader);  
               bufferedWriter = new BufferedWriter(outputStreamWriter);  
 
-              while (true){  
-                  String msgFromClient = bufferedReader.readLine();  
-                  System.out.println("Client: " + msgFromClient);   
-                  bufferedWriter.write(" MSG Received"); 
-                  bufferedWriter.newLine();  
-                  bufferedWriter.flush(); 
-
-                  if(msgFromClient.equals("get-cookie")){
-                    bufferedWriter.write("Cookie received");
-                  } 
-
-                  if (msgFromClient.equalsIgnoreCase("BYE"))  
-                  break;  
-              }  
+              while (true) {
+                String msgFromClient = bufferedReader.readLine();
+                System.out.println("Client: " + msgFromClient);
+            
+                // Send acknowledgment
+                bufferedWriter.write("MSG Received");
+                bufferedWriter.newLine();
+                bufferedWriter.flush();
+            
+                // Check for specific message
+                if (msgFromClient.equals("Cookie")) {
+                    // Send response
+                    bufferedWriter.write("Cookie");
+                    bufferedWriter.newLine();
+                    bufferedWriter.flush();
+                }
+            
+                if (msgFromClient.equalsIgnoreCase("BYE")) {
+                    // Send response
+                    bufferedWriter.write("BYE");
+                    bufferedWriter.newLine();
+                    bufferedWriter.flush();
+                    break;
+                }
+            }
               socket.close();  
               inputStreamReader.close();  
               outputStreamWriter.close();  
