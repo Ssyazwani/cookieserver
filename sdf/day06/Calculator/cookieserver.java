@@ -35,7 +35,7 @@ public class cookieserver{
 
                   if(msgFromClient.equals("get-cookie")){
                     bufferedWriter.write("Cookie received");
-                  }
+                  } 
 
                   if (msgFromClient.equalsIgnoreCase("BYE"))  
                   break;  
