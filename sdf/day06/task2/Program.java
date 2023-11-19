@@ -1,51 +1,85 @@
 package sdf.day06.task2;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.Console;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Program {
 
-    public static void start(Socket socket, BufferedReader bufferedReader,BufferedWriter bufferedWriter) throws IOException {
+    private Socket socket;
 
-        Scanner scanner = new Scanner(System.in); 
-        while (true) {
-            String msgToSend = scanner.nextLine();
-            bufferedWriter.write(msgToSend);
-            bufferedWriter.newLine();
-            bufferedWriter.flush();
-            
+    public Program(Socket socket) {
+        this.socket = socket;
 
-        String pattern = "id: (\\d+), title: (\\w+), price: (\\d+), rating: (\\d+)";
+    }
+
+    public static void start(Socket socket, BufferedWriter bufferedWriter, BufferedReader bufferedReader) throws IOException {
+
+      boolean stop = false;
+      Console cons = System.console();
+      while (!stop) {
+         String line = cons.readLine("> ");
+         line = line.trim() + "\n";
+
+         bufferedWriter.write(line);
+         bufferedWriter.flush();
 
         String serverResponse = bufferedReader.readLine();
+    while ((serverResponse = bufferedReader.readLine()) != null) {
+                System.out.println(serverResponse);
 
-        // Create a Pattern object
-        Pattern regex = Pattern.compile(pattern);
+                String[] arrayStrings = serverResponse.split(" ");
+                
+           switch(arrayStrings[0]){
+            case "product_id:":
+            if(serverResponse.length()> 11){
+                 String productId = serverResponse.substring(11);
+                 System.out.println("okay");
+            }
+            
+            case "item-count:":
+            if(serverResponse.length()> 11){
+            String itemCount = serverResponse.substring(11);
+            System.out.println("okay");
+            }
+            
+            case "budget:":
+            if(serverResponse.length()> 11){
+            String Budget = serverResponse.substring(7);
+            System.out.println("okay");
+            }
+            case "title:":
+            if(serverResponse.length()> 11){
+            String itemTitle = serverResponse.substring(6);
+            System.out.println("okay");
+            }
+            case "price:":
+            if(serverResponse.length()> 11){
+            String itemPrice = serverResponse.substring(6);
+            System.out.println("okay");
+            }
+            case "rating:":
+            if(serverResponse.length()> 11){
+            String itemRating = serverResponse.substring(7);
+            System.out.println("okay");
+            }
+            else{
+                continue;
+            }
+           } 
 
-        // Create a Matcher object
-        Matcher matcher = regex.matcher(serverResponse);
-
-        // Check if the pattern matches the input
-        if (matcher.find()) {
-            // Extract information using group numbers
-            String id = matcher.group(1);
-            String title = matcher.group(2);
-            String price = matcher.group(3);
-            String rating = matcher.group(4);
-
-            // Print the extracted information
-            System.out.println("ID: " + id);
-            System.out.println("Title: " + title);
-            System.out.println("Price: " + price);
-            System.out.println("Rating: " + rating);
-        } else {
-            System.out.println("Pattern not found in the input string.");
-        }
+           Map<String, Integer> ratingItem = new HashMap<>();
+           Map<String, Integer> pricingItem = new HashMap<>();
+       
+      
+    }
 
         // Close the socket and buffered reader if necessary
         socket.close();
@@ -53,4 +87,4 @@ public class Program {
     }
  }
 
-}
+  }

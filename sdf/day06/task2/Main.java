@@ -22,10 +22,13 @@ public class Main {
             bufferedReader = new BufferedReader(inputStreamReader);  
             bufferedWriter = new BufferedWriter(outputStreamWriter);  
 
-            String serverResponse;
-            while ((serverResponse = bufferedReader.readLine()) != null) {
-                System.out.println(serverResponse);
-            }
+          //  String serverResponse;
+          //  while ((serverResponse = bufferedReader.readLine()) != null) {
+          //      System.out.println(serverResponse);
+          //  }
+
+            Program sess = new Program(socket);
+            Program.start(socket, bufferedWriter, bufferedReader);
 
             System.out.println("Continue");
 
