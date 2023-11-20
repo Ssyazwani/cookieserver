@@ -24,51 +24,65 @@ public class Program {
 
       boolean stop = false;
       Console cons = System.console();
-      while (!stop) {
+      
+
+        String serverResponse = bufferedReader.readLine();
+    while ((serverResponse = bufferedReader.readLine()) != null) {
+                System.out.println(serverResponse);
+    }
+
+    Program.extract(socket, bufferedWriter, bufferedReader);
+
+
+    while (!stop) {
          String line = cons.readLine("> ");
          line = line.trim() + "\n";
 
          bufferedWriter.write(line);
          bufferedWriter.flush();
 
-        String serverResponse = bufferedReader.readLine();
-    while ((serverResponse = bufferedReader.readLine()) != null) {
-                System.out.println(serverResponse);
+    }
+ }
 
-                String[] arrayStrings = serverResponse.split(" ");
+    private static void extract(Socket socket, BufferedWriter bufferedWriter, BufferedReader bufferedReader) throws IOException {
+        
+            String serverResponse = bufferedReader.readLine();
+            while ((serverResponse = bufferedReader.readLine()) != null) {
+            String[]arrayStrings = serverResponse.split(" ");
                 
            switch(arrayStrings[0]){
             case "product_id:":
             if(serverResponse.length()> 11){
                  String productId = serverResponse.substring(11);
-                 System.out.println("okay");
+                 System.out.println("the product_id"+ productId);
             }
             
             case "item-count:":
             if(serverResponse.length()> 11){
             String itemCount = serverResponse.substring(11);
-            System.out.println("okay");
+            System.out.println("Item Count:"+ itemCount);
             }
             
             case "budget:":
             if(serverResponse.length()> 11){
             String Budget = serverResponse.substring(7);
-            System.out.println("okay");
+            double budget = Double.parseDouble(Budget);
+            System.out.println("Budget:"+ Budget);
             }
             case "title:":
             if(serverResponse.length()> 11){
             String itemTitle = serverResponse.substring(6);
-            System.out.println("okay");
+            System.out.println("Title:"+ itemTitle);
             }
             case "price:":
             if(serverResponse.length()> 11){
             String itemPrice = serverResponse.substring(6);
-            System.out.println("okay");
+            System.out.println("Price:"+ itemPrice);
             }
             case "rating:":
             if(serverResponse.length()> 11){
             String itemRating = serverResponse.substring(7);
-            System.out.println("okay");
+            System.out.println("Rating:"+ itemRating);
             }
             else{
                 continue;
@@ -81,10 +95,6 @@ public class Program {
       
     }
 
-        // Close the socket and buffered reader if necessary
-        socket.close();
-        bufferedReader.close();
     }
- }
 
-  }
+} 
