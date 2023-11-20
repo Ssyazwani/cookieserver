@@ -31,70 +31,93 @@ public class Program {
                 System.out.println(serverResponse);
     }
 
-    Program.extract(socket, bufferedWriter, bufferedReader);
 
 
-    while (!stop) {
-         String line = cons.readLine("> ");
-         line = line.trim() + "\n";
-
-         bufferedWriter.write(line);
-         bufferedWriter.flush();
-
-    }
  }
 
-    private static void extract(Socket socket, BufferedWriter bufferedWriter, BufferedReader bufferedReader) throws IOException {
-        
-            String serverResponse = bufferedReader.readLine();
-            while ((serverResponse = bufferedReader.readLine()) != null) {
-            String[]arrayStrings = serverResponse.split(" ");
-                
-           switch(arrayStrings[0]){
+ static void extract(Socket socket, BufferedWriter bufferedWriter, BufferedReader bufferedReader) throws IOException {
+    String serverResponse;
+    while ((serverResponse = bufferedReader.readLine()) != null) {
+        String[] arrayStrings = serverResponse.split(" ");
+
+        switch (arrayStrings[0]) {
             case "product_id:":
-            if(serverResponse.length()> 11){
-                 String productId = serverResponse.substring(11);
-                 System.out.println("the product_id"+ productId);
-            }
-            
+                if (serverResponse.length() > 11) {
+                    String productId = serverResponse.substring(11);
+                    System.out.println("Product ID: " + productId);
+                }
+                break;
+
             case "item-count:":
-            if(serverResponse.length()> 11){
-            String itemCount = serverResponse.substring(11);
-            System.out.println("Item Count:"+ itemCount);
-            }
-            
+                if (serverResponse.length() > 11) {
+                    String itemCount = serverResponse.substring(11);
+                    System.out.println("Item Count: " + itemCount);
+                }
+                break;
+
             case "budget:":
-            if(serverResponse.length()> 11){
-            String Budget = serverResponse.substring(7);
-            double budget = Double.parseDouble(Budget);
-            System.out.println("Budget:"+ Budget);
-            }
+                if (serverResponse.length() > 7) {
+                    String Budget = serverResponse.substring(7);
+                    double budget = Double.parseDouble(Budget);
+                    System.out.println("Budget: " + Budget);
+                }
+                break;
+
             case "title:":
-            if(serverResponse.length()> 11){
-            String itemTitle = serverResponse.substring(6);
-            System.out.println("Title:"+ itemTitle);
-            }
+                if (serverResponse.length() > 6) {
+                    String itemTitle = serverResponse.substring(6);
+                    System.out.println("Title: " + itemTitle);
+                }
+                break;
+
             case "price:":
-            if(serverResponse.length()> 11){
-            String itemPrice = serverResponse.substring(6);
-            System.out.println("Price:"+ itemPrice);
-            }
+                if (serverResponse.length() > 6) {
+                    String itemPrice = serverResponse.substring(6);
+                    System.out.println("Price: " + itemPrice);
+                }
+                break;
+
             case "rating:":
-            if(serverResponse.length()> 11){
-            String itemRating = serverResponse.substring(7);
-            System.out.println("Rating:"+ itemRating);
-            }
-            else{
-                continue;
-            }
-           } 
+                if (serverResponse.length() > 7) {
+                    String itemRating = serverResponse.substring(7);
+                    System.out.println("Rating: " + itemRating);
+                }
+                break;
 
-           Map<String, Integer> ratingItem = new HashMap<>();
-           Map<String, Integer> pricingItem = new HashMap<>();
-       
-      
+            case "prod_start":
+                String startDelimiter = "prod_start";
+                String endDelimiter = "prod_end";
+
+                int startIndex = serverResponse.indexOf(startDelimiter);
+                int endIndex = serverResponse.indexOf(endDelimiter, startIndex + startDelimiter.length());
+
+                if (startIndex != -1 && endIndex != -1) {
+                    String extractedValue = serverResponse.substring(startIndex + startDelimiter.length(), endIndex).trim();
+                    System.out.println("Extracted value: " + extractedValue);
+                } else {
+                    System.out.println("Delimiters not found in the input string.");
+                }
+                break;
+
+            default:
+                // Handle other cases if needed
+                break;
+        }
     }
+}
 
-    }
+              
+ } 
+        //   while (!stop) {
+        // String line = cons.readLine("> ");
+        // line = line.trim() + "\n";
 
-} 
+       //  bufferedWriter.write(line);
+        // bufferedWriter.flush();
+
+  //  }
+           
+            
+    
+
+ 

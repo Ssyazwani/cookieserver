@@ -29,6 +29,7 @@ public class Main {
 
             Program sess = new Program(socket);
             Program.start(socket, bufferedWriter, bufferedReader);
+            Program.extract(socket, bufferedWriter, bufferedReader);
 
             System.out.println("Continue");
 
