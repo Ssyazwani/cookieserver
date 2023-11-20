@@ -44,15 +44,15 @@ public class Main {
 
                 
                 switch (arrayStrings[0]) {
-                    case "request_id:":
-                    if (serverResponse.length() > 14) {
+                    case "request_id":
+                    if (serverResponse.length() > 15) {
                             String requestId = serverResponse.substring(14).trim();
                             System.out.println("RequestID " + requestId);
                             request.setRequestId(requestId);
                         }
                         break;
 
-                    case "item-count:":
+                    case "item-count":
                         if (serverResponse.length() > 11) {
                             String itemCount = serverResponse.substring(11).trim();
                             System.out.println("Item Count: " + itemCount);
