@@ -37,7 +37,7 @@ public class Main {
             Request request = null;
 
             
-            while ((bufferedReader.lines()) != null) {
+            while ((bufferedReader.lines()) != null) { // while productList.size() = ItemCount
                 String serverResponse = bufferedReader.readLine();
                 System.out.println(serverResponse);
 
@@ -53,9 +53,10 @@ public class Main {
                         }
                         break;
 
-                    case "item-count":
+                    case "item_count":
                         if (serverResponse.length() > 11) {
-                            String itemCount = serverResponse.substring(11).trim();
+                            String Countitem = serverResponse.substring(11).trim();
+                            int itemCount = Integer.parseInt(Countitem);
                             System.out.println("Item Count: " + itemCount);
                         }
                         break;
