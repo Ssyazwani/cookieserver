@@ -119,7 +119,12 @@ public class Main {
                     System.out.println(sortedProduct);
                 }
 
-                List<Product> selectedProducts = selectProducts(productList, budget);
+
+
+
+            }
+
+            List<Product> selectedProducts = selectProducts(productList, budget);
                 System.out.println("Selected Products:");
                 double spent = 0;
                 for (Product selectedProduct : selectedProducts) {
@@ -131,9 +136,6 @@ public class Main {
                 System.out.println("Remaining budget: $" + remaining);
     
                             System.out.print(selectedProducts);
-
-
-            }
 
 
     
