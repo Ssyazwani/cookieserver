@@ -36,8 +36,9 @@ public class Main {
             Product product = null; 
             Request request = null;
 
-            String serverResponse;
-            while ((serverResponse = bufferedReader.readLine()) != null) {
+            
+            while ((bufferedReader.lines()) != null) {
+                String serverResponse = bufferedReader.readLine();
                 System.out.println(serverResponse);
 
                 String[] arrayStrings = serverResponse.split(":");
@@ -48,7 +49,7 @@ public class Main {
                     if (serverResponse.length() > 15) {
                             String requestId = serverResponse.substring(14).trim();
                             System.out.println("RequestID " + requestId);
-                            request.setRequestId(requestId);
+                            
                         }
                         break;
 
@@ -123,44 +124,29 @@ public class Main {
                 double spent = 0;
                 for (Product selectedProduct : selectedProducts) {
                     System.out.println(selectedProduct);
-                    spent += selectedProduct.getPrice();
+                    spent += selectedProduct.getPrice(); // get selected out of the while loop
                 }
     
                 double remaining = budget - spent;
                 System.out.println("Remaining budget: $" + remaining);
     
+                            System.out.print(selectedProducts);
+
 
             }
 
-    while (!stop) {
-         String line = cons.readLine();
-         line = line.trim() + "\n";
 
-         Request productRequest = new Request();
-        // productRequest.setRequestId(serverResponse.getRequestId(request));
-         productRequest.setName("Name");
-         productRequest.setEmail("gmail");
-         //productRequest.setItems();
-         productRequest.setSpent(budget);
-         productRequest.setRemaining(budget);
+    
 
-
-      
-        bufferedWriter.write("request_id:");
-        bufferedWriter.write("name : ");
-        bufferedWriter.write("email:");
-        bufferedWriter.write("items: " + selectProducts(productList, budget));
-        bufferedWriter.write("spent: %.2f\n");
-        bufferedWriter.write("semaining: %.2f\n");
-        bufferedWriter.write("client_end");
-
-    } 
-
-
-    }catch (IOException e) {
+    } catch (IOException e) {
             e.printStackTrace();
-        }
+
+
     }
+}
+
+        
+    
 
     private static List<Product> selectProducts(List<Product> productList, double budget) {
         List<Product> selectedProducts = new ArrayList<>();
@@ -178,8 +164,10 @@ public class Main {
         return selectedProducts;
     }
 
-    
 }
+
+    
+
     
 
 
