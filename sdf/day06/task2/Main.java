@@ -138,19 +138,10 @@ import java.util.stream.Collectors;
             break;
         }
     
-         System.out.println("Remaining budget: $" + remaining);
+        System.out.println("Remaining budget: $" + remaining);
         System.out.println("Spent: $" + spent);
 
-
-    }
-}
-
-
-            }
-
-            
-
-            boolean stop = false;
+        boolean stop = false;
 
             while (!stop) {
                 response = "request_id: " + requestId + "\n" +
@@ -161,7 +152,7 @@ import java.util.stream.Collectors;
                         "remaining: " + remaining + "\n" +
                         "client_end\n";
 
-                System.out.println(response);
+                
                 bufferedWriter.write(response);
                 bufferedWriter.flush();
 
@@ -173,6 +164,17 @@ import java.util.stream.Collectors;
                     }
                 }
             }
+
+
+    }
+}
+
+
+            }
+
+            
+
+            
 
         } catch (IOException e) {
             e.printStackTrace();
